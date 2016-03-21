@@ -21,6 +21,9 @@ public class SpringExampleRunner {
         System.out.println("adfadf");
         ApplicationContext context = new AnnotationConfigApplicationContext(ExampleSpringConfiguration.class);
         Config hazelcastConfig = new Config();
+        hazelcastConfig.getNetworkConfig().getJoin().getTcpIpConfig().addMember("127.0.0.1").setEnabled(true);
+        hazelcastConfig.getNetworkConfig().getJoin().getMulticastConfig().setEnabled(false);
+
         ClusterManager mgr = new HazelcastClusterManager(hazelcastConfig);
         VertxOptions options = new VertxOptions().setClusterManager(mgr);
         Vertx.clusteredVertx(options, res -> {
