@@ -1,9 +1,9 @@
-= Vert.x Spring-vertx example project
+= Vert.x Spring-vertx Cluster 
 
 This project is a demo of exposing Spring-hosted service beans (and therefore Spring-wired services) via vert.x
 cluster. In vert.x 3 it's perfectly possible to share an application context between multiple verticles.
 
-In this demo we can see basic configuration required for creating vert.x cluster. This cluster is discovered via TCP. though there are other mechanisms available.
+In this demo we can see basic configuration required for creating vert.x cluster. This cluster is dependent on hazelecast for discovery though Zookeeper can also be used.
 
 You can run it directly in your IDE by creating a run configuration that uses the main class
 `io.vertx.examples.spring.SpringExampleRunner`.
