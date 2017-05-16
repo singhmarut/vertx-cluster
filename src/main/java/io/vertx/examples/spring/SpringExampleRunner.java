@@ -7,8 +7,6 @@ import io.vertx.core.spi.cluster.ClusterManager;
 import io.vertx.examples.spring.verticle.ServerVerticle;
 import io.vertx.examples.spring.verticle.SpringDemoVerticle;
 import io.vertx.spi.cluster.hazelcast.HazelcastClusterManager;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 /**
  * Runner for the vertx-spring sample

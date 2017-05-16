@@ -6,7 +6,6 @@ import io.vertx.core.AbstractVerticle;
 import io.vertx.core.Handler;
 import io.vertx.core.eventbus.Message;
 import io.vertx.examples.spring.service.ProductService;
-import org.springframework.context.ApplicationContext;
 
 
 /**
