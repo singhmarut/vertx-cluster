@@ -21,11 +21,8 @@ public class SpringDemoVerticle extends AbstractVerticle {
     public static final String ALL_PRODUCTS_ADDRESS = "example.all.products";
 
     private final ObjectMapper mapper = new ObjectMapper();
-    private final ProductService service;
 
-    public SpringDemoVerticle(final ApplicationContext context) {
-
-        service = (ProductService) context.getBean("productService");
+    public SpringDemoVerticle() {
 
     }
 
@@ -50,6 +47,8 @@ public class SpringDemoVerticle extends AbstractVerticle {
     @Override
     public void start() throws Exception {
         super.start();
-        vertx.eventBus().<String>consumer(ALL_PRODUCTS_ADDRESS).handler(allProductsHandler(service));
+        ProductService productService = new ProductService();
+        //Start consuming events
+        vertx.eventBus().<String>consumer(ALL_PRODUCTS_ADDRESS).handler(allProductsHandler(productService));
     }
 }

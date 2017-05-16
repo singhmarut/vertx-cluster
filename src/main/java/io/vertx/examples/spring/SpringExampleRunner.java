@@ -4,7 +4,6 @@ import com.hazelcast.config.Config;
 import io.vertx.core.Vertx;
 import io.vertx.core.VertxOptions;
 import io.vertx.core.spi.cluster.ClusterManager;
-import io.vertx.examples.spring.context.ExampleSpringConfiguration;
 import io.vertx.examples.spring.verticle.ServerVerticle;
 import io.vertx.examples.spring.verticle.SpringDemoVerticle;
 import io.vertx.spi.cluster.hazelcast.HazelcastClusterManager;
@@ -19,7 +18,6 @@ public class SpringExampleRunner {
 
     public static void main( String[] args ) {
         System.out.println("adfadf");
-        ApplicationContext context = new AnnotationConfigApplicationContext(ExampleSpringConfiguration.class);
         Config hazelcastConfig = new Config();
         hazelcastConfig.getNetworkConfig().getJoin().getTcpIpConfig().addMember("127.0.0.1").setEnabled(true);
         hazelcastConfig.getNetworkConfig().getJoin().getMulticastConfig().setEnabled(false);
@@ -29,7 +27,7 @@ public class SpringExampleRunner {
         Vertx.clusteredVertx(options, res -> {
             if (res.succeeded()) {
                 Vertx vertx = res.result();
-                vertx.deployVerticle(new SpringDemoVerticle(context));
+                vertx.deployVerticle(new SpringDemoVerticle());
                 vertx.deployVerticle(new ServerVerticle(Integer.parseInt(args[0])));
             } else {
             }
