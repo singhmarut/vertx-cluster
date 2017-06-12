@@ -1,11 +1,16 @@
-package io.vertx.examples.spring.verticle;
+package io.vertx.examples.spring.verticle
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import io.vertx.core.AbstractVerticle;
-import io.vertx.core.Handler;
-import io.vertx.core.eventbus.Message;
-import io.vertx.examples.spring.service.ProductService;
+
+/**
+ * Created by marutsingh on 5/27/17.
+ */
+
+import com.fasterxml.jackson.core.JsonProcessingException
+import com.fasterxml.jackson.databind.ObjectMapper
+import io.vertx.core.AbstractVerticle
+import io.vertx.core.Handler
+import io.vertx.core.eventbus.Message
+import io.vertx.examples.spring.service.ProductService
 
 
 /**
@@ -15,19 +20,19 @@ import io.vertx.examples.spring.service.ProductService;
  * know for sure otherwise (in other words use executeBlocking unless you know for sure your service call will be
  * extremely quick to respond)
  */
-public class SpringDemoVerticle extends AbstractVerticle {
+class SpringDemoVerticle1 : AbstractVerticle() {
 
-    public static final String ALL_PRODUCTS_ADDRESS = "example.all.products";
+    private val mapper = ObjectMapper()
 
-    private final ObjectMapper mapper = new ObjectMapper();
+    /*fun allProductsHandler(service: ProductService): Handler<Message<String>> {
 
-    public SpringDemoVerticle() {
 
-    }
-
-    /*private Handler<Message<String>> allProductsHandler(ProductService service)  {
-
-       // throw new Exception("");
+        System.out.println("Hello World!")
+        return { msg ->
+            System.out.println("1 received message.body() = "
+                    + message.body());
+        }
+        // throw new Exception("");
 
         *//*return msg -> vertx.<String>executeBlocking(future -> {
                     throw new Exception("");
@@ -47,18 +52,24 @@ public class SpringDemoVerticle extends AbstractVerticle {
                 });*//*
     }
 */
-    @Override
-    public void start() throws Exception {
-        super.start();
-        ProductService productService = new ProductService();
+    override fun start() {
+        super.start()
+        val productService = ProductService()
 
-       /* vertx.eventBus().consumer("anAddress", message -> {
+        vertx.eventBus().consumer(ALL_PRODUCTS_ADDRESS,  { message: Message<String> ->
             System.out.println("1 received message.body() = "
                     + message.body());
-        });*/
+        })
+
         //Start consuming events
-        vertx.eventBus().<String>consumer(ALL_PRODUCTS_ADDRESS).handler(msg -> {
-            System.out.println(msg);
-        });
+        /*vertx.eventBus().consumer<String>(ALL_PRODUCTS_ADDRESS,  {
+            allProductsHandler(productService)
+        })*/
+
+    }
+
+    companion object {
+
+        public val ALL_PRODUCTS_ADDRESS: String = "example.all.products"
     }
 }

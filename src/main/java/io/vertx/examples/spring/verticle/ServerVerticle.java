@@ -32,6 +32,7 @@ public class ServerVerticle extends AbstractVerticle {
                         }
                     });
                 } else {
+                    System.out.println("Printing");
                     req.response().setStatusCode(200).write("Hello from vert.x").end();
                 }
 
